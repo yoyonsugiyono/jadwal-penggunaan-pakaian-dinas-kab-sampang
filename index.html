@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jadwal Pakaian Dinas ASN Sampang 2026 (6 Hari Kerja - ISO 8601)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .day-cell { min-height: 100px; }
+        @media (max-width: 768px) {
+            .day-cell { min-height: 80px; font-size: 0.8rem; }
+            .badge { font-size: 0.65rem; padding: 2px 4px; }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+    <div class="max-w-6xl mx-auto p-4 md:p-8">
+        <!-- Header -->
+        <header class="mb-8 text-center">
+            <h1 class="text-3xl font-bold text-blue-900 mb-2">Jadwal Pakaian Dinas ASN Sampang 2026</h1>
+            <p class="text-lg text-gray-700 font-semibold text-orange-600">Khusus Unit Kerja 6 Hari Kerja</p>
+            
+            <!-- Sumber Dasar Hukum -->
+            <div class="mt-4 text-sm text-gray-600 bg-blue-50 p-3 rounded-lg inline-block border border-blue-100 max-w-2xl mx-auto">
+                <p class="font-bold text-blue-800 mb-1">Dasar Hukum:</p>
+                <ul class="text-left list-disc list-inside space-y-1 text-xs md:text-sm">
+                    <li>Peraturan Bupati Sampang Nomor 45 Tahun 2025 (Tentang Pakaian Dinas ASN)</li>
+                    <li>Surat Edaran Dinas Pendidikan No. 400.3/965/434.201/2025 (Tentang Batik PGRI)</li>
+                </ul>
+            </div>
+
+            <div class="mt-4">
+                <p class="text-xs text-gray-500 font-mono bg-gray-100 inline-block px-2 py-1 rounded">
+                    Minggu ke-1 berdasarkan ISO 8601 (Jika awal bulan jatuh pada Jumat/Sabtu/Minggu, hari tersebut masuk "Minggu 0". Minggu 1 dimulai Senin berikutnya)
+                </p>
+            </div>
+        </header>
+
+        <!-- Controls -->
+        <div class="flex justify-between items-center mb-6 bg-white p-4 rounded-lg shadow-sm border border-gray-200">
+            <button id="prevMonth" class="px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-md font-medium text-gray-700 transition">
+                &larr; Bulan Lalu
+            </button>
+            <h2 id="currentMonthLabel" class="text-xl font-bold text-gray-800 uppercase tracking-wide"></h2>
+            <button id="nextMonth" class="px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-md font-medium text-gray-700 transition">
+                Bulan Depan &rarr;
+            </button>
+        </div>
+
+        <!-- Calendar Grid -->
+        <div class="bg-white rounded-xl shadow-lg border border-gray-200 overflow-hidden">
+            <!-- Days Header (ISO 8601: Starts Monday) -->
+            <div class="grid grid-cols-7 bg-blue-900 text-white text-center py-3 font-semibold">
+                <div>Senin</div>
+                <div>Selasa</div>
+                <div>Rabu</div>
+                <div>Kamis</div>
+                <div>Jumat</div>
+                <div class="bg-blue-800 text-yellow-300">Sabtu</div>
+                <div class="bg-red-700">Minggu</div>
+            </div>
+            
+            <!-- Calendar Days -->
+            <div id="calendarGrid" class="grid grid-cols-7 border-l border-t border-gray-200">
+                <!-- Javascript will populate this -->
+            </div>
+        </div>
+
+        <!-- Legenda / Detail Aturan -->
+        <div class="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Aturan Harian -->
+            <div class="bg-white p-5 rounded-lg shadow border-l-4 border-yellow-500">
+                <h3 class="font-bold text-gray-900 mb-2">Jadwal Harian</h3>
+                <ul class="space-y-2 text-sm text-gray-700">
+                    <li class="flex items-center"><span class="w-3 h-3 bg-yellow-200 border border-yellow-500 rounded-full mr-2"></span> <strong>Senin - Selasa:</strong> PDH Khaki</li>
+                    <li class="flex items-center"><span class="w-3 h-3 bg-gray-100 border border-gray-400 rounded-full mr-2"></span> <strong>Rabu:</strong> PDH Kemeja Putih</li>
+                    <li class="flex items-center"><span class="w-3 h-3 bg-indigo-50 border border-indigo-200 rounded-full mr-2"></span> <strong>Sabtu:</strong> Batik Biasa*</li>
+                    <li class="text-xs text-gray-500 mt-1 italic">*Kecuali jatuh pada tgl 17 atau 2 Okt</li>
+                </ul>
+            </div>
+
+            <!-- Aturan Khusus -->
+            <div class="bg-white p-5 rounded-lg shadow border-l-4 border-purple-500">
+                <h3 class="font-bold text-gray-900 mb-2">Khusus Kamis & Jumat</h3>
+                <ul class="space-y-2 text-sm text-gray-700">
+                    <li class="flex items-start"><span class="text-orange-600 font-bold w-6">Mg 1:</span> Batik Trunojoyo + Odheng</li>
+                    <li class="flex items-start"><span class="text-pink-600 font-bold w-6">Mg 3:</span> Busana Adat (Khusus Jumat)</li>
+                    <li class="flex items-start"><span class="text-teal-600 font-bold w-6">Mg 4:</span> Batik PGRI Kusuma Bangsa</li>
+                </ul>
+                <div class="mt-3 p-2 bg-purple-50 rounded text-xs text-purple-800 border border-purple-100">
+                    <strong>Catatan ISO 8601:</strong> Jika awal bulan jatuh pada Jumat/Sabtu/Minggu, hari tersebut masuk "Minggu 0" (Batik Biasa). Minggu 1 dimulai Senin berikutnya.
+                </div>
+            </div>
+
+            <!-- Prioritas -->
+            <div class="bg-white p-5 rounded-lg shadow border-l-4 border-blue-600">
+                <h3 class="font-bold text-gray-900 mb-2">Prioritas Tertinggi</h3>
+                <ul class="space-y-2 text-sm text-gray-700">
+                    <li class="flex items-center">
+                        <span class="w-3 h-3 bg-blue-100 border border-blue-500 rounded-full mr-2"></span>
+                        <strong>Tanggal 17:</strong> Wajib Batik KORPRI + Peci.
+                    </li>
+                    <li class="flex items-center">
+                        <span class="w-3 h-3 bg-purple-100 border border-purple-500 rounded-full mr-2"></span>
+                        <strong>2 Oktober:</strong> Wajib Batik Nasional.
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Detail -->
+    <div id="detailModal" class="fixed inset-0 bg-black bg-opacity-50 hidden flex items-center justify-center p-4 z-50">
+        <div class="bg-white rounded-lg shadow-xl max-w-sm w-full p-6 relative transform transition-all">
+            <button onclick="closeModal()" class="absolute top-3 right-3 text-gray-400 hover:text-gray-600">&times;</button>
+            <div id="modalContent">
+                <!-- Content injected via JS -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // State: Start January 2026
+        let currentDate = new Date(2026, 0, 1); 
+
+        // Helper: Calculate ISO Week of the Month (1-based, 0 if belonging to prev month)
+        function getWeekOfMonthISO(date) {
+            const year = date.getFullYear();
+            const month = date.getMonth();
+            
+            // 1. Find the 1st day of the month
+            const firstDayOfMonth = new Date(year, month, 1);
+            let dayOfWeek = firstDayOfMonth.getDay(); // 0=Sun, 1=Mon...
+            if (dayOfWeek === 0) dayOfWeek = 7; // ISO: Mon=1...Sun=7
+            
+            // 2. Determine Start of Week 1
+            // ISO 8601: Week 1 is the first week with >= 4 days of the month.
+            // Equivalently: The week containing the first Thursday.
+            let startOfWeek1;
+            
+            if (dayOfWeek <= 4) {
+                // If starts Mon, Tue, Wed, Thu -> This week is Week 1.
+                // Start of Week 1 is the Monday of this week.
+                // e.g., if 1st is Thu (4), offset is 1-4 = -3 days.
+                const offset = 1 - dayOfWeek;
+                startOfWeek1 = new Date(year, month, 1 + offset);
+            } else {
+                // If starts Fri, Sat, Sun -> This week is Week 0 (prev month).
+                // Week 1 starts the NEXT Monday.
+                // e.g., if 1st is Fri (5), offset is 8-5 = +3 days.
+                const offset = 8 - dayOfWeek;
+                startOfWeek1 = new Date(year, month, 1 + offset);
+            }
+
+            // 3. Compare date with startOfWeek1
+            // Reset time for accurate day difference
+            const d = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+            const s = new Date(startOfWeek1.getFullYear(), startOfWeek1.getMonth(), startOfWeek1.getDate());
+
+            if (d < s) {
+                return 0; // "Week 0" / Stub week belonging to previous month context
+            }
+
+            const diffTime = Math.abs(d - s);
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
+            // diffDays is 0 for the start day? No, lets use exact math
+            // Row calculation: 
+            return Math.floor((d - s) / (1000 * 60 * 60 * 24 * 7)) + 1;
+        }
+
+        // Helper: Get Uniform Logic
+        function getUniform(date) {
+            const dayOfWeek = date.getDay(); // 0=Sun, 1=Mon, ..., 6=Sat
+            const dayOfMonth = date.getDate();
+            const month = date.getMonth(); // 0=Jan, 11=Dec
+            
+            // 1. Prioritas Utama: Tanggal 17 (KORPRI)
+            if (dayOfMonth === 17) {
+                return {
+                    type: 'KORPRI',
+                    color: 'bg-blue-100 border-blue-400 text-blue-800',
+                    desc: 'Batik KORPRI',
+                    detail: 'Lengkap dengan Peci Nasional (Menggantikan seragam harian).'
+                };
+            }
+
+            // 2. Prioritas Kedua: Hari Batik Nasional (2 Oktober)
+            if (month === 9 && dayOfMonth === 2) { // October is 9
+                return {
+                    type: 'BATIK_NAS',
+                    color: 'bg-purple-100 border-purple-400 text-purple-800',
+                    desc: 'Hari Batik',
+                    detail: 'Batik Nasional / Batik Daerah + Odheng.'
+                };
+            }
+
+            // 3. Logika Hari
+            const weekNumISO = getWeekOfMonthISO(date);
+
+            if (dayOfWeek === 1 || dayOfWeek === 2) { // Senin, Selasa
+                return {
+                    type: 'KHAKI',
+                    color: 'bg-yellow-100 border-yellow-400 text-yellow-800',
+                    desc: 'PDH Khaki',
+                    detail: 'Pakaian Dinas Harian Khaki.'
+                };
+            } else if (dayOfWeek === 3) { // Rabu
+                return {
+                    type: 'PUTIH',
+                    color: 'bg-gray-100 border-gray-300 text-gray-800',
+                    desc: 'Kemeja Putih',
+                    detail: 'PDH Kemeja Putih (Bawahan Gelap).'
+                };
+            } else if (dayOfWeek === 4) { // Kamis
+                // Kamis ke-1 (ISO)
+                if (weekNumISO === 1) {
+                    return {
+                        type: 'TRUNOJOYO',
+                        color: 'bg-orange-100 border-orange-400 text-orange-800',
+                        desc: 'Batik Trunojoyo',
+                        detail: 'Batik Khas Daerah (Trunojoyo) + Odheng (Minggu 1 ISO).'
+                    };
+                }
+                // Kamis ke-4 (ISO)
+                else if (weekNumISO === 4) {
+                    return {
+                        type: 'PGRI',
+                        color: 'bg-teal-100 border-teal-400 text-teal-800',
+                        desc: 'Batik PGRI',
+                        detail: 'Batik PGRI Kusuma Bangsa.'
+                    };
+                }
+                // Kamis Lainnya (Week 0, 2, 3, 5)
+                else {
+                    return {
+                        type: 'BATIK',
+                        color: 'bg-indigo-50 border-indigo-200 text-indigo-700',
+                        desc: 'Batik Biasa',
+                        detail: 'PDH Batik Biasa.'
+                    };
+                }
+            } else if (dayOfWeek === 5) { // Jumat
+                // Jumat ke-1 (ISO)
+                if (weekNumISO === 1) {
+                    return {
+                        type: 'TRUNOJOYO',
+                        color: 'bg-orange-100 border-orange-400 text-orange-800',
+                        desc: 'Batik Trunojoyo',
+                        detail: 'Batik Khas Daerah (Trunojoyo) + Odheng (Minggu 1 ISO).'
+                    };
+                }
+                // Jumat ke-3 (ISO)
+                else if (weekNumISO === 3) {
+                    return {
+                        type: 'ADAT',
+                        color: 'bg-pink-100 border-pink-400 text-pink-800',
+                        desc: 'Busana Adat',
+                        detail: 'Busana Adat Sampang (Laki-laki: Batik Serser/Mangkubumi, Wanita: Kebaya/Batik).'
+                    };
+                }
+                // Jumat ke-4 (ISO)
+                else if (weekNumISO === 4) {
+                    return {
+                        type: 'PGRI',
+                        color: 'bg-teal-100 border-teal-400 text-teal-800',
+                        desc: 'Batik PGRI',
+                        detail: 'Batik PGRI Kusuma Bangsa.'
+                    };
+                }
+                // Jumat Lainnya (Week 0, 2, 5)
+                else {
+                    return {
+                        type: 'BATIK',
+                        color: 'bg-indigo-50 border-indigo-200 text-indigo-700',
+                        desc: 'Batik Biasa',
+                        detail: 'PDH Batik Biasa.'
+                    };
+                }
+            } else if (dayOfWeek === 6) { // Sabtu (Masuk untuk 6 Hari Kerja)
+                return {
+                    type: 'BATIK',
+                    color: 'bg-indigo-50 border-indigo-200 text-indigo-700',
+                    desc: 'Batik Biasa',
+                    detail: 'PDH Batik (Sesuai Pasal 7 untuk 6 hari kerja).'
+                };
+            } else {
+                return {
+                    type: 'LIBUR',
+                    color: 'bg-red-50 text-red-400',
+                    desc: 'Libur',
+                    detail: 'Hari Libur Akhir Pekan.'
+                };
+            }
+        }
+
+        function renderCalendar() {
+            const grid = document.getElementById('calendarGrid');
+            grid.innerHTML = '';
+            
+            const year = currentDate.getFullYear();
+            const month = currentDate.getMonth();
+
+            // Update Header Label
+            const monthNames = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
+            document.getElementById('currentMonthLabel').innerText = `${monthNames[month]} ${year}`;
+
+            // Logic to find first day of month and days in month
+            const firstDayOfMonth = new Date(year, month, 1);
+            const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+            // ISO 8601 Adjustment: 0 is Sunday, but we want 0 to be Monday for the grid loop
+            // JS getDay(): 0=Sun, 1=Mon... 
+            // We want Grid 0=Mon, 6=Sun.
+            let startDayIndex = firstDayOfMonth.getDay() - 1; 
+            if (startDayIndex === -1) startDayIndex = 6; // If Sunday (0), becomes 6
+
+            // Previous month padding
+            for (let i = 0; i < startDayIndex; i++) {
+                const cell = document.createElement('div');
+                cell.className = 'bg-gray-50 border-r border-b border-gray-200';
+                grid.appendChild(cell);
+            }
+
+            // Days
+            for (let d = 1; d <= daysInMonth; d++) {
+                const date = new Date(year, month, d);
+                const dayOfWeek = date.getDay();
+                const isSunday = dayOfWeek === 0;
+                const uniform = getUniform(date);
+                
+                const cell = document.createElement('div');
+                // Highlight Saturday slightly different to indicate it's a working day in this view
+                const bgClass = isSunday ? 'bg-red-50' : (dayOfWeek === 6 ? 'bg-blue-50/30' : 'bg-white');
+                
+                cell.className = `day-cell border-r border-b border-gray-200 p-2 relative hover:bg-gray-100 transition cursor-pointer ${bgClass}`;
+                
+                // Content
+                let html = `<div class="font-semibold text-sm ${isSunday ? 'text-red-500' : 'text-gray-700'}">${d}</div>`;
+                
+                if (!isSunday) {
+                    html += `
+                        <div class="mt-2 flex flex-col gap-1">
+                            <span class="badge rounded border text-xs font-medium px-2 py-1 text-center truncate ${uniform.color}">
+                                ${uniform.desc}
+                            </span>
+                        </div>
+                    `;
+                }
+
+                cell.innerHTML = html;
+                
+                // Interaction
+                if (!isSunday) {
+                    cell.onclick = () => openModal(date, uniform);
+                }
+                
+                grid.appendChild(cell);
+            }
+        }
+
+        function openModal(date, uniform) {
+            const modal = document.getElementById('detailModal');
+            const content = document.getElementById('modalContent');
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            const weekISO = getWeekOfMonthISO(date);
+            
+            content.innerHTML = `
+                <div class="flex justify-between items-baseline mb-1">
+                    <h3 class="text-xl font-bold text-gray-900">${date.toLocaleDateString('id-ID', options)}</h3>
+                    <span class="text-xs text-gray-500 font-mono">Minggu ISO: ${weekISO}</span>
+                </div>
+                <div class="h-1 w-full bg-gray-200 my-3"></div>
+                <div class="mb-4">
+                    <p class="text-sm text-gray-500 uppercase font-semibold">Pakaian Dinas</p>
+                    <p class="text-lg font-medium text-blue-900">${uniform.desc}</p>
+                </div>
+                <div class="bg-gray-50 p-3 rounded-md border border-gray-200">
+                    <p class="text-sm text-gray-700">${uniform.detail}</p>
+                </div>
+            `;
+            
+            modal.classList.remove('hidden');
+        }
+
+        function closeModal() {
+            document.getElementById('detailModal').classList.add('hidden');
+        }
+
+        // Listeners
+        document.getElementById('prevMonth').addEventListener('click', () => {
+            currentDate.setMonth(currentDate.getMonth() - 1);
+            renderCalendar();
+        });
+
+        document.getElementById('nextMonth').addEventListener('click', () => {
+            currentDate.setMonth(currentDate.getMonth() + 1);
+            renderCalendar();
+        });
+
+        document.getElementById('detailModal').addEventListener('click', (e) => {
+            if (e.target.id === 'detailModal') closeModal();
+        });
+
+        // Init
+        renderCalendar();
+
+    </script>
+</body>
+</html>
