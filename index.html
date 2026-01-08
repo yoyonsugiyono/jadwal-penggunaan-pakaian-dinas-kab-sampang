@@ -19,14 +19,32 @@
 
     <div class="max-w-6xl mx-auto p-4 md:p-8">
         <!-- Header -->
-        <header class="mb-8 text-center">
+        <header class="mb-8 flex flex-col items-center text-center">
+            
+            <!-- FOTO PROFIL (STATIS) -->
+            <!-- CARA GANTI FOTO: Ganti teks di dalam tanda kutip src="..." di bawah ini dengan link foto Anda -->
+            <div class="mb-4">
+                <img id="profileImage" 
+                     src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEghqaUfoevXpwNKd_9ShY1msJcNK-YkIdRQIU0Rx2h_Mbk5N7QDyyV4TftLLIiVwv0QcuqKlyAbZIiPr97LZqzPtyoySEguYIDHxHpHeeNcH6U1cZVf5eBGHLNFWbvDvaYOFOQT5ZpWAK88HEXUClsLIY3N3zwXKnC3YKHEKKnuGZ0YseKfUc6ecZEAWXbo/s800/DSC_4375.jpg" 
+                     alt="Foto Profil" 
+                     class="w-28 h-28 rounded-full border-4 border-white shadow-lg object-cover bg-gray-200">
+            </div>
+
             <h1 class="text-3xl font-bold text-blue-900 mb-2">Jadwal Pakaian Dinas ASN Sampang 2026</h1>
             <p class="text-lg text-gray-700 font-semibold text-orange-600">Khusus Unit Kerja 6 Hari Kerja</p>
             
+            <!-- Kredit Header -->
+            <div class="mt-3 p-2 bg-blue-50/50 rounded-lg inline-block border border-blue-100">
+                <p class="text-xs md:text-sm text-gray-600 font-medium">
+                    Dibuat oleh Gemini dan dimodifikasi oleh <span class="text-blue-800 font-bold">Yoyon Sugiyono, S.Pd., M.Pd., Gr.</span><br>
+                    <span class="text-gray-500 text-xs">(UPTD SDN Margantoko 2, Kec. Jrengik, Kab. Sampang)</span>
+                </p>
+            </div>
+
             <!-- Sumber Dasar Hukum -->
-            <div class="mt-4 text-sm text-gray-600 bg-blue-50 p-3 rounded-lg inline-block border border-blue-100 max-w-2xl mx-auto">
-                <p class="font-bold text-blue-800 mb-1">Dasar Hukum:</p>
-                <ul class="text-left list-disc list-inside space-y-1 text-xs md:text-sm">
+            <div class="mt-4 text-sm text-gray-600 bg-white p-3 rounded-lg border border-gray-200 shadow-sm max-w-2xl mx-auto text-left w-full">
+                <p class="font-bold text-blue-800 mb-1 text-center">Dasar Hukum:</p>
+                <ul class="list-disc list-inside space-y-1 text-xs md:text-sm">
                     <li>Peraturan Bupati Sampang Nomor 45 Tahun 2025 (Tentang Pakaian Dinas ASN)</li>
                     <li>Surat Edaran Dinas Pendidikan No. 400.3/965/434.201/2025 (Tentang Batik PGRI)</li>
                 </ul>
@@ -110,6 +128,19 @@
                 </ul>
             </div>
         </div>
+
+        <!-- Footer -->
+        <footer class="mt-12 pt-6 border-t border-gray-200 text-center">
+            <p class="text-sm text-gray-500 font-medium">
+                Dibuat oleh Gemini dan dimodifikasi oleh <span class="text-gray-700 font-bold">Yoyon Sugiyono, S.Pd., M.Pd., Gr.</span>
+            </p>
+            <p class="text-xs text-gray-400 mt-1">
+                (UPTD SDN Margantoko 2, Kec. Jrengik, Kab. Sampang)
+            </p>
+            <p class="text-xs text-gray-300 mt-4">
+                &copy; 2026 - Aplikasi Jadwal Pakaian Dinas Interaktif
+            </p>
+        </footer>
     </div>
 
     <!-- Modal Detail -->
